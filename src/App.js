@@ -22,7 +22,7 @@ class App extends Component {
   state = {
     searchKey: "",
     reslut: Countries,
-    startWith: false,
+    startWith: true,
     includes: false,
   }
 
@@ -61,8 +61,9 @@ class App extends Component {
     if(this.state.includes){
       result = this.containsWord(key);
     }
-   let  numOfResults = (result.length >1 ? `${result.length} matchs found` : `${(result.length==1?"1 match found":"No matches found")}`);	
-   let resultsFoundClass = (result.length >= 1? "found":"not-found");
+
+    let  numOfResults = (result.length >1 ? `${result.length} matchs found` : `${(result.length===1?"1 match found":"No matches found")}`);	
+    let resultsFoundClass = (result.length >= 1? "found":"not-found");
 
     return (
       <div className="flex-container">
@@ -73,7 +74,7 @@ class App extends Component {
           </div>
           <p id="noOfCountries"  className="flex-items">Total number of countries {Countries.length}</p> 
           <div className="flex-items">                    
-            <input  onChange={this.startWithEventHandler} id="startWord" type="radio" name="wordPositon" value="startWord"/>
+            <input  onChange={this.startWithEventHandler} id="startWord" type="radio" name="wordPositon" value="startWord" checked/>
             <label htmlFor="starWord"> Starts with</label>
             <input onChange={this.includesEventHandler} id="anyWord" type="radio" name="wordPositon" value="anyWord"/> 
             <label htmlFor="anyWord">Includes</label>
@@ -85,7 +86,7 @@ class App extends Component {
           <p className = {resultsFoundClass}>{numOfResults}</p>
         </div>
         {result.map((country,index)=>{
-           return <div id="countryInfo" class="flex-items" key={index} style={{background:this.randomHexaColor()}}> {country}</div>
+           return <div id="countryInfo" className="flex-items" key={index} style={{background:this.randomHexaColor()}}> {country}</div>
         })}             
       </div>
     );
